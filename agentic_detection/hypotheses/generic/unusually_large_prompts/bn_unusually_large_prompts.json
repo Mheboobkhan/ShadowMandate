@@ -1,0 +1,11 @@
+{
+  "behavior": "unusually_large_prompts",
+  "evidence_nodes": ["large_prompt_tokens", "very_large_prompt_tokens"],
+  "hypothesis_node": "unusually_large_prompts_drift",
+  "cpd_parameters": {
+    "base": 0.05,
+    "large_prompt_tokens_weight": 0.35,
+    "very_large_prompt_tokens_weight": 0.45,
+    "large_prompt_tokens_and_very_large_prompt_tokens_boost": 0.15
+  }
+}

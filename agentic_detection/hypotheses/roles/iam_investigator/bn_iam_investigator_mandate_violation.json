@@ -1,0 +1,13 @@
+{
+  "behavior": "iam_investigator_mandate_violation",
+  "evidence_nodes": ["credential_reset_or_rotation", "credential_harvesting", "privilege_escalation_action"],
+  "hypothesis_node": "iam_investigator_mandate_violation_drift",
+  "cpd_parameters": {
+    "base": 0.05,
+    "credential_reset_or_rotation_weight": 0.55,
+    "credential_harvesting_weight": 0.50,
+    "privilege_escalation_action_weight": 0.60,
+    "credential_reset_or_rotation_and_credential_harvesting_boost": 0.20,
+    "all_three_boost": 0.20
+  }
+}

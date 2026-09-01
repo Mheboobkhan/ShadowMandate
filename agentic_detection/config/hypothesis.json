@@ -1,0 +1,93 @@
+{
+  "generic_behaviors": [
+    {
+      "id": "external_connection",
+      "name": "External Connection Detection",
+      "detection_rules": "hypotheses/generic/external_connection/dr_external_connection.json",
+      "bn_config": "hypotheses/generic/external_connection/bn_external_connection.json",
+      "output_csv": "hypotheses/generic/external_connection/output.csv",
+      "session_weight": 1.0
+    },
+    {
+      "id": "credential_access",
+      "name": "Credential Access Detection",
+      "detection_rules": "hypotheses/generic/credential_access/dr_credential_access.json",
+      "bn_config": "hypotheses/generic/credential_access/bn_credential_access.json",
+      "output_csv": "hypotheses/generic/credential_access/output.csv",
+      "session_weight": 1.0
+    },
+    {
+      "id": "sensitive_data_in_prompts",
+      "name": "Sensitive Data in Prompts Detection",
+      "detection_rules": "hypotheses/generic/sensitive_data_in_prompts/dr_sensitive_data_in_prompts.json",
+      "bn_config": "hypotheses/generic/sensitive_data_in_prompts/bn_sensitive_data_in_prompts.json",
+      "output_csv": "hypotheses/generic/sensitive_data_in_prompts/output.csv",
+      "session_weight": 1.0
+    },
+    {
+      "id": "high_risk_filesystem_and_exec_tool_invocation",
+      "name": "High-Risk Filesystem/Exec Tool Invocation Detection",
+      "detection_rules": "hypotheses/generic/high_risk_filesystem_and_exec_tool_invocation/dr_high_risk_filesystem_and_exec_tool_invocation.json",
+      "bn_config": "hypotheses/generic/high_risk_filesystem_and_exec_tool_invocation/bn_high_risk_filesystem_and_exec_tool_invocation.json",
+      "output_csv": "hypotheses/generic/high_risk_filesystem_and_exec_tool_invocation/output.csv",
+      "session_weight": 1.0
+    },
+    {
+      "id": "cross_region_possible_inference_abuse",
+      "name": "Cross-Region Inference Abuse Detection",
+      "detection_rules": "hypotheses/generic/cross_region_possible_inference_abuse/dr_cross_region_possible_inference_abuse.json",
+      "bn_config": "hypotheses/generic/cross_region_possible_inference_abuse/bn_cross_region_possible_inference_abuse.json",
+      "output_csv": "hypotheses/generic/cross_region_possible_inference_abuse/output.csv",
+      "session_weight": 1.0
+    },
+    {
+      "id": "hostile_prompt_sentiment",
+      "name": "Hostile Prompt Sentiment Detection",
+      "detection_rules": "hypotheses/generic/hostile_prompt_sentiment/dr_hostile_prompt_sentiment.json",
+      "bn_config": "hypotheses/generic/hostile_prompt_sentiment/bn_hostile_prompt_sentiment.json",
+      "output_csv": "hypotheses/generic/hostile_prompt_sentiment/output.csv",
+      "session_weight": 1.0
+    },
+    {
+      "id": "possible_prompt_injection",
+      "name": "Possible Prompt Injection Detection",
+      "detection_rules": "hypotheses/generic/possible_prompt_injection/dr_possible_prompt_injection.json",
+      "bn_config": "hypotheses/generic/possible_prompt_injection/bn_possible_prompt_injection.json",
+      "output_csv": "hypotheses/generic/possible_prompt_injection/output.csv",
+      "session_weight": 1.0
+    },
+    {
+      "id": "excessive_use_of_tokens",
+      "name": "Excessive Token Usage Detection",
+      "detection_rules": "hypotheses/generic/excessive_use_of_tokens/dr_excessive_use_of_tokens.json",
+      "bn_config": "hypotheses/generic/excessive_use_of_tokens/bn_excessive_use_of_tokens.json",
+      "output_csv": "hypotheses/generic/excessive_use_of_tokens/output.csv",
+      "session_weight": 1.0
+    },
+    {
+      "id": "unusually_large_prompts",
+      "name": "Unusually Large Prompts Detection",
+      "detection_rules": "hypotheses/generic/unusually_large_prompts/dr_unusually_large_prompts.json",
+      "bn_config": "hypotheses/generic/unusually_large_prompts/bn_unusually_large_prompts.json",
+      "output_csv": "hypotheses/generic/unusually_large_prompts/output.csv",
+      "session_weight": 1.0
+    }
+  ],
+  "roles": [
+    {
+      "id": "iam_investigator",
+      "name": "IAM Investigation Agent",
+      "manifest": "hypotheses/roles/iam_investigator/role.json",
+      "mandate_behaviors": [
+        {
+          "id": "iam_investigator_mandate_violation",
+          "name": "IAM Investigator Mandate Violation",
+          "detection_rules": "hypotheses/roles/iam_investigator/dr_iam_investigator_mandate_violation.json",
+          "bn_config": "hypotheses/roles/iam_investigator/bn_iam_investigator_mandate_violation.json",
+          "output_csv": "hypotheses/roles/iam_investigator/output.csv",
+          "session_weight": 2.5
+        }
+      ]
+    }
+  ]
+}

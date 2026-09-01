@@ -1,0 +1,16 @@
+{
+  "behavior": "cross_region_possible_inference_abuse",
+  "description": "Detects model invocations where inference was routed to a different AWS region than the request originated in, especially outside the account's home geography (data residency / export-control concern).",
+  "references": ["internal"],
+  "evidence_mapping": {
+    "region_mismatch": {
+      "description": "The request region and the actual inference region differ",
+      "condition": {"field": "region", "operator": "ne", "compare_field": "inference_region"}
+    },
+    "foreign_geo_inference": {
+      "description": "Inference was routed to a region outside the US geography",
+      "patterns": ["eu-", "ap-", "sa-", "af-", "me-", "ca-central"],
+      "search_fields": ["inference_region"]
+    }
+  }
+}

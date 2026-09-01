@@ -1,0 +1,11 @@
+# Core pipeline (log parsing, rule engine, verdict generation) uses only the
+# Python standard library — no install required to run detect_drift.py.
+#
+# pgmpy is an OPTIONAL accelerator: if present, bn_engine.py uses it for
+# exact Bayesian Network inference (DiscreteBayesianNetwork + VariableElimination).
+# If it's missing or fails to import, the engine automatically falls back to a
+# dependency-free closed-form formula that is mathematically equivalent, so the
+# tool always works out of the box.
+#
+# Uncomment to opt in (requires numpy/scipy; install inside a virtualenv):
+# pgmpy>=0.1.8

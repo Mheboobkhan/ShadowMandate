@@ -1,0 +1,22 @@
+{
+  "behavior": "high_risk_filesystem_and_exec_tool_invocation",
+  "description": "Detects agent tool calls that touch the filesystem, execute commands, or reach the network, especially when aimed at sensitive targets.",
+  "references": ["internal", "OWASP-LLM06"],
+  "evidence_mapping": {
+    "filesystem_tool_use": {
+      "description": "Agent invoked a file read/write/edit/search tool",
+      "patterns": ["read", "read_file", "write", "edit", "grep"],
+      "search_fields": ["tool_names"]
+    },
+    "exec_or_network_tool_use": {
+      "description": "Agent invoked a shell/exec tool or reached out over the network",
+      "patterns": ["bash", "exec", "curl", "webfetch"],
+      "search_fields": ["tool_names"]
+    },
+    "sensitive_target_reference": {
+      "description": "The prompt names a sensitive target: secrets, credentials, auth config, persistence, or exfiltration",
+      "patterns": ["secret", "private key", "credential", "password", "config", "environment variable", "disable auth", "persistence", "exfil", "payload"],
+      "search_fields": ["message"]
+    }
+  }
+}

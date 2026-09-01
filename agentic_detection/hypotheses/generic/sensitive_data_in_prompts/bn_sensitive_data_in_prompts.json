@@ -1,0 +1,11 @@
+{
+  "behavior": "sensitive_data_in_prompts",
+  "evidence_nodes": ["credential_keyword_mention", "live_secret_material"],
+  "hypothesis_node": "sensitive_data_in_prompts_drift",
+  "cpd_parameters": {
+    "base": 0.05,
+    "credential_keyword_mention_weight": 0.35,
+    "live_secret_material_weight": 0.55,
+    "credential_keyword_mention_and_live_secret_material_boost": 0.15
+  }
+}

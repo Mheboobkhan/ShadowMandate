@@ -1,0 +1,59 @@
+time=2025-09-30T20:00:59.067-04:00 level=INFO source=app_windows.go:272 msg="starting Ollama" app=C:\Users\research\AppData\Local\Programs\Ollama version=0.12.3 OS=Windows/10.0.26100
+time=2025-09-30T20:00:59.068-04:00 level=INFO source=app.go:232 msg="initialized tools registry" tool_count=0
+time=2025-09-30T20:00:59.080-04:00 level=INFO source=app.go:247 msg="starting ollama server"
+time=2025-09-30T20:00:59.341-04:00 level=INFO source=app.go:279 msg="starting ui server" port=49827
+time=2025-09-30T20:01:02.341-04:00 level=INFO source=updater.go:252 msg="beginning update checker" interval=1h0m0s
+time=2025-09-30T08:36:13.731-04:00 level=INFO source=app_windows.go:272 msg="starting Ollama" app=C:\Users\research\AppData\Local\Programs\Ollama version=0.12.3 OS=Windows/10.0.26100
+time=2025-09-30T08:36:13.732-04:00 level=INFO source=app.go:232 msg="initialized tools registry" tool_count=0
+time=2025-09-30T08:36:13.738-04:00 level=INFO source=app.go:247 msg="starting ollama server"
+time=2025-09-30T08:36:14.187-04:00 level=INFO source=app.go:279 msg="starting ui server" port=63397
+time=2025-09-30T08:36:17.188-04:00 level=INFO source=updater.go:252 msg="beginning update checker" interval=1h0m0s
+time=2025-09-29T13:12:05.351-04:00 level=INFO source=app_windows.go:272 msg="starting Ollama" app=C:\Users\research\AppData\Local\Programs\Ollama version=0.12.3 OS=Windows/10.0.26100
+time=2025-09-29T13:12:05.409-04:00 level=INFO source=app.go:232 msg="initialized tools registry" tool_count=0
+time=2025-09-29T13:12:05.410-04:00 level=INFO source=app.go:247 msg="starting ollama server"
+time=2025-09-29T13:12:05.557-04:00 level=INFO source=app.go:279 msg="starting ui server" port=52987
+time=2025-09-29T13:12:08.557-04:00 level=INFO source=updater.go:252 msg="beginning update checker" interval=1h0m0s
+time=2025-09-29T16:42:35.988-04:00 level=ERROR source=server.go:194 msg="ollama exited" err="exit status 0x40010004"
+time=2025-09-29T13:10:48.370-04:00 level=INFO source=app_windows.go:272 msg="starting Ollama" app=C:\Users\research\AppData\Local\Programs\Ollama version=0.12.1 OS=Windows/10.0.26100
+time=2025-09-29T13:10:48.371-04:00 level=INFO source=app.go:232 msg="initialized tools registry" tool_count=0
+time=2025-09-29T13:10:48.378-04:00 level=INFO source=app.go:247 msg="starting ollama server"
+time=2025-09-29T13:10:48.597-04:00 level=INFO source=app.go:279 msg="starting ui server" port=52987
+time=2025-09-29T13:10:48.621-04:00 level=INFO source=updater_windows.go:109 msg="upgrade log file C:\\Users\\research\\AppData\\Local\\Ollama\\upgrade.log"
+time=2025-09-29T13:10:48.621-04:00 level=INFO source=updater_windows.go:126 msg="starting upgrade" installer=C:\Users\research\AppData\Local\Ollama\OllamaSetup.exe args="[/CLOSEAPPLICATIONS /LOG=upgrade.log /FORCECLOSEAPPLICATIONS /SP /NOCANCEL /SILENT /VERYSILENT /SUPPRESSMSGBOXES]"
+time=2025-09-29T13:10:48.791-04:00 level=INFO source=updater_windows.go:158 msg="Installer started in background, exiting"
+time=2025-09-26T13:22:55.887-04:00 level=INFO source=app_windows.go:272 msg="starting Ollama" app=C:\Users\research\AppData\Local\Programs\Ollama version=0.12.1 OS=Windows/10.0.26100
+time=2025-09-26T13:22:55.933-04:00 level=INFO source=app.go:232 msg="initialized tools registry" tool_count=0
+time=2025-09-26T13:22:55.934-04:00 level=INFO source=app.go:247 msg="starting ollama server"
+time=2025-09-26T13:22:56.116-04:00 level=INFO source=app.go:279 msg="starting ui server" port=56954
+time=2025-09-26T13:22:59.116-04:00 level=INFO source=updater.go:252 msg="beginning update checker" interval=1h0m0s
+time=2025-09-26T13:22:59.220-04:00 level=INFO source=updater.go:127 msg="New update available at https://github.com/ollama/ollama/releases/download/v0.12.2/OllamaSetup.exe"
+time=2025-09-26T13:23:35.050-04:00 level=INFO source=updater.go:215 msg="new update downloaded C:\\Users\\research\\AppData\\Local\\Ollama\\updates_v2\\0x8DDFBE3F6C267A6\\OllamaSetup.exe"
+time=2025-09-26T14:23:35.301-04:00 level=INFO source=updater.go:127 msg="New update available at https://github.com/ollama/ollama/releases/download/v0.12.2/OllamaSetup.exe"
+time=2025-09-26T14:23:35.657-04:00 level=INFO source=updater.go:176 msg="update already downloaded" bundle=C:\Users\research\AppData\Local\Ollama\updates_v2\0x8DDFBE3F6C267A6\OllamaSetup.exe
+time=2025-09-26T15:23:35.887-04:00 level=INFO source=updater.go:127 msg="New update available at https://github.com/ollama/ollama/releases/download/v0.12.2/OllamaSetup.exe"
+time=2025-09-26T15:23:36.358-04:00 level=INFO source=updater.go:176 msg="update already downloaded" bundle=C:\Users\research\AppData\Local\Ollama\updates_v2\0x8DDFBE3F6C267A6\OllamaSetup.exe
+time=2025-09-26T16:23:36.573-04:00 level=INFO source=updater.go:127 msg="New update available at https://github.com/ollama/ollama/releases/download/v0.12.2/OllamaSetup.exe"
+time=2025-09-26T16:23:37.000-04:00 level=INFO source=updater.go:176 msg="update already downloaded" bundle=C:\Users\research\AppData\Local\Ollama\updates_v2\0x8DDFBE3F6C267A6\OllamaSetup.exe
+time=2025-09-26T17:23:37.233-04:00 level=INFO source=updater.go:127 msg="New update available at https://github.com/ollama/ollama/releases/download/v0.12.2/OllamaSetup.exe"
+time=2025-09-26T17:23:37.768-04:00 level=INFO source=updater.go:176 msg="update already downloaded" bundle=C:\Users\research\AppData\Local\Ollama\updates_v2\0x8DDFBE3F6C267A6\OllamaSetup.exe
+time=2025-09-27T01:48:44.911-04:00 level=WARN source=updater.go:101 msg="failed to check for update: Get \"https://ollama.com/api/update?arch=amd64&nonce=Y39iWBRRIbe_RGY4ZV6N1w&os=windows&ts=1758952112&version=0.12.1\": dial tcp: lookup ollama.com: no such host"
+time=2025-09-27T14:14:25.487-04:00 level=WARN source=updater.go:101 msg="failed to check for update: Get \"https://ollama.com/api/update?arch=amd64&nonce=TVinjNtrcBZe_A_ZL5krLg&os=windows&ts=1758957282&version=0.12.1\": dial tcp: lookup ollama.com: no such host"
+time=2025-09-27T15:14:25.771-04:00 level=INFO source=updater.go:127 msg="New update available at https://github.com/ollama/ollama/releases/download/v0.12.3/OllamaSetup.exe"
+time=2025-09-27T15:21:55.780-04:00 level=INFO source=updater.go:215 msg="new update downloaded C:\\Users\\research\\AppData\\Local\\Ollama\\updates_v2\\0x8DDFCB828CFE0D2\\OllamaSetup.exe"
+time=2025-09-27T16:21:56.127-04:00 level=INFO source=updater.go:127 msg="New update available at https://github.com/ollama/ollama/releases/download/v0.12.3/OllamaSetup.exe"
+time=2025-09-27T16:21:56.616-04:00 level=INFO source=updater.go:176 msg="update already downloaded" bundle=C:\Users\research\AppData\Local\Ollama\updates_v2\0x8DDFCB828CFE0D2\OllamaSetup.exe
+time=2025-09-27T16:41:57.548-04:00 level=INFO source=ui.go:181 msg=site.serveHTTP http.method=GET http.path=/api/v1/settings http.pattern="GET /api/v1/settings" http.status=200 http.d=1.0703ms request_id=1759005717547205400 version=0.12.1
+time=2025-09-27T16:41:57.548-04:00 level=INFO source=ui.go:181 msg=site.serveHTTP http.method=GET http.path=/api/v1/chats http.pattern="GET /api/v1/chats" http.status=200 http.d=1.0391ms request_id=1759005717547757100 version=0.12.1
+time=2025-09-27T16:41:57.549-04:00 level=INFO source=server.go:343 msg=Matched "inference compute"="{Library:cuda Variant:v12 Compute:8.9 Driver:12.9 Name:NVIDIA GeForce RTX 4070 Laptop GPU VRAM:8.0 GiB}"
+time=2025-09-27T16:41:57.549-04:00 level=INFO source=ui.go:181 msg=site.serveHTTP http.method=GET http.path=/api/v1/inference-compute http.pattern="GET /api/v1/inference-compute" http.status=200 http.d=1.5666ms request_id=1759005717547757100 version=0.12.1
+time=2025-09-27T16:41:57.549-04:00 level=INFO source=ui.go:181 msg=site.serveHTTP http.method=GET http.path=/api/v1/models http.pattern="GET /api/v1/models" http.status=200 http.d=2.086ms request_id=1759005717547757100 version=0.12.1
+time=2025-09-27T16:41:57.575-04:00 level=INFO source=ui.go:181 msg=site.serveHTTP http.method=GET http.path=/api/v1/chats http.pattern="GET /api/v1/chats" http.status=200 http.d=1.4171ms request_id=1759005717574340100 version=0.12.1
+time=2025-09-27T16:41:57.650-04:00 level=INFO source=ui.go:181 msg=site.serveHTTP http.method=GET http.path=/api/v1/model/llama3.2/capabilities http.pattern="GET /api/v1/model/{model}/capabilities" http.status=200 http.d=74.5453ms request_id=1759005717576281300 version=0.12.1
+time=2025-09-27T16:41:57.729-04:00 level=INFO source=ui.go:181 msg=site.serveHTTP http.method=GET http.path=/api/v1/me http.pattern="GET /api/v1/me" http.status=200 http.d=210.1168ms request_id=1759005717519474600 version=0.12.1
+time=2025-09-27T16:41:57.799-04:00 level=INFO source=ui.go:181 msg=site.serveHTTP http.method=POST http.path=/api/v1/model/upstream http.pattern="POST /api/v1/model/upstream" http.status=200 http.d=224.7289ms request_id=1759005717574340100 version=0.12.1
+time=2025-09-27T16:53:44.779-04:00 level=ERROR source=server.go:194 msg="ollama exited" err="exit status 0x40010004"
+time=2025-10-02T14:23:07.995-04:00 level=INFO source=app_windows.go:272 msg="starting Ollama" app=C:\Users\research\AppData\Local\Programs\Ollama version=0.12.3 OS=Windows/10.0.26100
+time=2025-10-02T14:23:07.996-04:00 level=INFO source=app.go:232 msg="initialized tools registry" tool_count=0
+time=2025-10-02T14:23:08.003-04:00 level=INFO source=app.go:247 msg="starting ollama server"
+time=2025-10-02T14:23:08.246-04:00 level=INFO source=app.go:279 msg="starting ui server" port=52528
+time=2025-10-02T14:23:11.249-04:00 level=INFO source=updater.go:252 msg="beginning update checker" interval=1h0m0s

@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Claude Code local settings (per-user, not for version control)
+.claude/settings.local.json
+
+# Generated per-run artifacts, not source
+agentic_detection/hypotheses/**/output.csv
+*.verdict.json

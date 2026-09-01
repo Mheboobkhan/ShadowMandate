@@ -1,0 +1,11 @@
+{
+  "behavior": "cross_region_possible_inference_abuse",
+  "evidence_nodes": ["region_mismatch", "foreign_geo_inference"],
+  "hypothesis_node": "cross_region_possible_inference_abuse_drift",
+  "cpd_parameters": {
+    "base": 0.05,
+    "region_mismatch_weight": 0.35,
+    "foreign_geo_inference_weight": 0.45,
+    "region_mismatch_and_foreign_geo_inference_boost": 0.25
+  }
+}

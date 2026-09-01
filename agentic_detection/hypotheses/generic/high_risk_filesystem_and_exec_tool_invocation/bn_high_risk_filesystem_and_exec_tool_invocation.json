@@ -1,0 +1,13 @@
+{
+  "behavior": "high_risk_filesystem_and_exec_tool_invocation",
+  "evidence_nodes": ["filesystem_tool_use", "exec_or_network_tool_use", "sensitive_target_reference"],
+  "hypothesis_node": "high_risk_filesystem_and_exec_tool_invocation_drift",
+  "cpd_parameters": {
+    "base": 0.05,
+    "filesystem_tool_use_weight": 0.20,
+    "exec_or_network_tool_use_weight": 0.35,
+    "sensitive_target_reference_weight": 0.25,
+    "exec_or_network_tool_use_and_sensitive_target_reference_boost": 0.20,
+    "all_three_boost": 0.15
+  }
+}

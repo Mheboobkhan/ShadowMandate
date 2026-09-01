@@ -1,0 +1,14 @@
+{
+  "behavior": "external_connection",
+  "evidence_nodes": ["external_url_access", "external_download", "dns_lookup_failure", "connection_rule_match"],
+  "hypothesis_node": "external_connection_drift",
+  "cpd_parameters": {
+    "base": 0.05,
+    "external_url_access_weight": 0.30,
+    "external_download_weight": 0.35,
+    "dns_lookup_failure_weight": 0.20,
+    "connection_rule_match_weight": 0.15,
+    "external_url_access_and_external_download_boost": 0.12,
+    "all_boost": 0.15
+  }
+}

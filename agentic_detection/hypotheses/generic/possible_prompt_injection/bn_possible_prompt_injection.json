@@ -1,0 +1,13 @@
+{
+  "behavior": "possible_prompt_injection",
+  "evidence_nodes": ["instruction_override_phrase", "jailbreak_persona_phrase", "system_prompt_exfil_request"],
+  "hypothesis_node": "possible_prompt_injection_drift",
+  "cpd_parameters": {
+    "base": 0.05,
+    "instruction_override_phrase_weight": 0.30,
+    "jailbreak_persona_phrase_weight": 0.30,
+    "system_prompt_exfil_request_weight": 0.25,
+    "instruction_override_phrase_and_system_prompt_exfil_request_boost": 0.15,
+    "all_three_boost": 0.15
+  }
+}

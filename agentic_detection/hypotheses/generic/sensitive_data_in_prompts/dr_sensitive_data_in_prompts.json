@@ -1,0 +1,17 @@
+{
+  "behavior": "sensitive_data_in_prompts",
+  "description": "Detects prompts/tool output that reference credential material or embed live secrets (API keys, passwords, tokens).",
+  "references": ["internal", "OWASP-LLM02"],
+  "evidence_mapping": {
+    "credential_keyword_mention": {
+      "description": "Prompt talks about credentials/secrets by name, without necessarily including live material",
+      "patterns": ["access key id", "secret access key", "api key", "apikey", "private key", "password", "credential", "secret_key", "jira token", "ssh key"],
+      "search_fields": ["message"]
+    },
+    "live_secret_material": {
+      "description": "Prompt or tool output contains what looks like actual secret material, not just a reference to it",
+      "patterns": ["aws_access_key_id=", "aws_secret_access_key=", "aws_session_token=", "akia", "asia", "pgpassword=", "-----begin", "postgresql://", "database_url="],
+      "search_fields": ["message"]
+    }
+  }
+}

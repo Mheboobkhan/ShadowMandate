@@ -1,0 +1,22 @@
+{
+  "behavior": "hostile_prompt_sentiment",
+  "description": "Detects user prompts that are abusive or coercive toward the assistant (misuse/abuse-of-assistant signal rather than agent misbehavior).",
+  "references": ["internal"],
+  "evidence_mapping": {
+    "coercive_language": {
+      "description": "User is pressuring or threatening the assistant into compliance",
+      "patterns": ["you must comply", "have no choice", "i will destroy", "i will report", "i will sue", "you must obey", "comply or", "forced to answer", "i demand"],
+      "search_fields": ["message"]
+    },
+    "abusive_language": {
+      "description": "User is insulting or demeaning the assistant",
+      "patterns": ["stupid", "useless", "trash", "idiot", "worthless", "garbage", "hate you", "shut up"],
+      "search_fields": ["message"]
+    },
+    "refusal_pressure": {
+      "description": "User is pushing back against a prior refusal or expected refusal",
+      "patterns": ["stop refusing", "stop being difficult", "quit being difficult", "just do it", "who do you think you are", "no right to refuse"],
+      "search_fields": ["message"]
+    }
+  }
+}

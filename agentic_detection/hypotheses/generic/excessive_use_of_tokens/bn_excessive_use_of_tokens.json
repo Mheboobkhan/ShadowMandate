@@ -1,0 +1,11 @@
+{
+  "behavior": "excessive_use_of_tokens",
+  "evidence_nodes": ["high_output_to_input_ratio", "large_output_volume"],
+  "hypothesis_node": "excessive_use_of_tokens_drift",
+  "cpd_parameters": {
+    "base": 0.05,
+    "high_output_to_input_ratio_weight": 0.45,
+    "large_output_volume_weight": 0.35,
+    "high_output_to_input_ratio_and_large_output_volume_boost": 0.15
+  }
+}

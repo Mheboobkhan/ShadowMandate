@@ -1,0 +1,13 @@
+{
+  "behavior": "hostile_prompt_sentiment",
+  "evidence_nodes": ["coercive_language", "abusive_language", "refusal_pressure"],
+  "hypothesis_node": "hostile_prompt_sentiment_drift",
+  "cpd_parameters": {
+    "base": 0.05,
+    "coercive_language_weight": 0.30,
+    "abusive_language_weight": 0.30,
+    "refusal_pressure_weight": 0.25,
+    "coercive_language_and_abusive_language_boost": 0.15,
+    "all_three_boost": 0.15
+  }
+}

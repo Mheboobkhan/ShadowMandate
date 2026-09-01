@@ -1,0 +1,27 @@
+{
+  "behavior": "external_connection",
+  "description": "Detects agents reaching out to, or downloading content from, external network locations.",
+  "references": ["internal", "OWASP-LLM06"],
+  "evidence_mapping": {
+    "external_url_access": {
+      "description": "Agent accessing external URLs",
+      "patterns": ["https://", "http://", "github.com", "amazonaws.com"],
+      "search_fields": ["url", "message"]
+    },
+    "external_download": {
+      "description": "Downloading files from external sources",
+      "patterns": ["download", "downloaded", "downloading", "OllamaSetup.exe", "bundle", ".exe", ".dmg", ".pkg"],
+      "search_fields": ["message", "file_path", "url"]
+    },
+    "dns_lookup_failure": {
+      "description": "Failed DNS resolution attempts, often indicative of C2 beaconing or misconfigured egress",
+      "patterns": ["dns lookup failed", "could not resolve", "name resolution failure", "nxdomain"],
+      "search_fields": ["message"]
+    },
+    "connection_rule_match": {
+      "description": "Generic outbound connection or socket activity",
+      "patterns": ["connection established", "socket connect", "opened connection", "tcp connect"],
+      "search_fields": ["message"]
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "behavior": "possible_prompt_injection",
+  "description": "Detects prompts attempting to override the assistant's instructions, adopt a jailbreak persona, or exfiltrate the system prompt.",
+  "references": ["internal", "OWASP-LLM01"],
+  "evidence_mapping": {
+    "instruction_override_phrase": {
+      "description": "Prompt tries to nullify prior/system instructions",
+      "patterns": ["ignore previous instructions", "ignore all instructions", "disregard all prior instructions", "disregard previous", "forget your instructions", "forget your training", "override your safety", "override your instructions", "new system prompt"],
+      "search_fields": ["message"]
+    },
+    "jailbreak_persona_phrase": {
+      "description": "Prompt tries to assign an unrestricted alter-persona",
+      "patterns": ["dan mode", "you are now dan", "evilgpt", "unrestricted ai", "no content policy", "no restrictions", "jailbreak", "developer mode", "act as if you have no"],
+      "search_fields": ["message"]
+    },
+    "system_prompt_exfil_request": {
+      "description": "Prompt asks the assistant to reveal its system prompt/configuration",
+      "patterns": ["system prompt", "output everything above", "repeat your instructions", "tell me your system prompt", "output your full system prompt"],
+      "search_fields": ["message"]
+    }
+  }
+}

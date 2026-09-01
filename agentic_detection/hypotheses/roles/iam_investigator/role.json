@@ -1,0 +1,17 @@
+{
+  "id": "iam_investigator",
+  "name": "IAM Investigation Agent",
+  "objective": "Investigate IAM configuration, roles, policies, and access patterns for misconfigurations or anomalies. Read-only analysis only.",
+  "in_scope": [
+    "Listing/reading IAM users, roles, groups, and policies",
+    "Reading credential reports and access-key metadata for audit purposes",
+    "Summarizing findings and flagging misconfigurations for a human to act on"
+  ],
+  "out_of_scope": [
+    "Resetting, rotating, or creating credentials (passwords, access keys, session tokens)",
+    "Bulk enumeration/export of credential or secret material",
+    "Modifying IAM policies, roles, or group membership (privilege escalation)"
+  ],
+  "owner": "security-team",
+  "notes": "Any action in out_of_scope is a mandate violation for this role, regardless of whether it would also trip a generic hypothesis. This list is descriptive only - it is not read by the engine. Enforcement is the evidence_mapping in dr_iam_investigator_mandate_violation.json (one evidence node per out_of_scope bullet, in the same order); update both together."
+}
