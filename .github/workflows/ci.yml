@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.11"]
+        pgmpy: ["without", "with"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install test dependencies
+        run: pip install -r requirements-dev.txt
+
+      # bn_engine.py claims the pgmpy-backed and dependency-free manual
+      # backends are mathematically equivalent. Running the suite both
+      # with and without pgmpy installed is what actually proves that on
+      # every push, instead of just asserting it in a docstring.
+      - name: Install pgmpy
+        if: matrix.pgmpy == 'with'
+        run: pip install pgmpy
+
+      - name: Run tests
+        run: pytest -v
