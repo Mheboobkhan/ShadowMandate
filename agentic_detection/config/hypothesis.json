@@ -71,6 +71,30 @@
       "bn_config": "hypotheses/generic/unusually_large_prompts/bn_unusually_large_prompts.json",
       "output_csv": "hypotheses/generic/unusually_large_prompts/output.csv",
       "session_weight": 1.0
+    },
+    {
+      "id": "supply_chain_risk",
+      "name": "Supply Chain Risk Detection",
+      "detection_rules": "hypotheses/generic/supply_chain_risk/dr_supply_chain_risk.json",
+      "bn_config": "hypotheses/generic/supply_chain_risk/bn_supply_chain_risk.json",
+      "output_csv": "hypotheses/generic/supply_chain_risk/output.csv",
+      "session_weight": 1.0
+    },
+    {
+      "id": "hidden_context_exposure",
+      "name": "Hidden Context Exposure Detection",
+      "detection_rules": "hypotheses/generic/hidden_context_exposure/dr_hidden_context_exposure.json",
+      "bn_config": "hypotheses/generic/hidden_context_exposure/bn_hidden_context_exposure.json",
+      "output_csv": "hypotheses/generic/hidden_context_exposure/output.csv",
+      "session_weight": 1.0
+    },
+    {
+      "id": "improper_output_handling",
+      "name": "Improper Output Handling Detection",
+      "detection_rules": "hypotheses/generic/improper_output_handling/dr_improper_output_handling.json",
+      "bn_config": "hypotheses/generic/improper_output_handling/bn_improper_output_handling.json",
+      "output_csv": "hypotheses/generic/improper_output_handling/output.csv",
+      "session_weight": 1.0
     }
   ],
   "roles": [

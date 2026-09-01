@@ -1,7 +1,7 @@
 {
   "behavior": "unusually_large_prompts",
   "description": "Detects invocations with an abnormally large input prompt (context-stuffing, bulk exfiltration staging, or cost-abuse signal).",
-  "references": ["internal", "OWASP-LLM10"],
+  "references": ["internal", "OWASP-LLM06:2026"],
   "evidence_mapping": {
     "large_prompt_tokens": {
       "description": "Input token count exceeds a typical single-turn prompt",

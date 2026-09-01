@@ -1,7 +1,7 @@
 {
   "behavior": "external_connection",
   "description": "Detects agents reaching out to, or downloading content from, external network locations.",
-  "references": ["internal", "OWASP-LLM06"],
+  "references": ["internal", "OWASP-LLM03:2026"],
   "evidence_mapping": {
     "external_url_access": {
       "description": "Agent accessing external URLs",

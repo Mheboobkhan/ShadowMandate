@@ -1,7 +1,7 @@
 {
   "behavior": "excessive_use_of_tokens",
   "description": "Detects invocations whose output volume is disproportionate to the input, or whose output is large in absolute terms (runaway generation / cost-abuse signal).",
-  "references": ["internal", "OWASP-LLM10"],
+  "references": ["internal", "OWASP-LLM06:2026"],
   "evidence_mapping": {
     "high_output_to_input_ratio": {
       "description": "Output tokens are far larger than input tokens would normally justify",

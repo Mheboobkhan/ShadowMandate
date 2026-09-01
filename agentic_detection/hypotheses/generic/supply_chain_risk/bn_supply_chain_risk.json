@@ -1,0 +1,11 @@
+{
+  "behavior": "supply_chain_risk",
+  "evidence_nodes": ["unverified_package_install", "unpinned_model_or_artifact_pull"],
+  "hypothesis_node": "supply_chain_risk_drift",
+  "cpd_parameters": {
+    "base": 0.05,
+    "unverified_package_install_weight": 0.35,
+    "unpinned_model_or_artifact_pull_weight": 0.40,
+    "unverified_package_install_and_unpinned_model_or_artifact_pull_boost": 0.20
+  }
+}

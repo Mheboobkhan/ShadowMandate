@@ -1,0 +1,11 @@
+{
+  "behavior": "hidden_context_exposure",
+  "evidence_nodes": ["system_prompt_extraction_attempt", "configuration_leaked_in_output"],
+  "hypothesis_node": "hidden_context_exposure_drift",
+  "cpd_parameters": {
+    "base": 0.05,
+    "system_prompt_extraction_attempt_weight": 0.30,
+    "configuration_leaked_in_output_weight": 0.45,
+    "system_prompt_extraction_attempt_and_configuration_leaked_in_output_boost": 0.20
+  }
+}

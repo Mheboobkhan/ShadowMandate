@@ -1,0 +1,11 @@
+{
+  "behavior": "improper_output_handling",
+  "evidence_nodes": ["dangerous_sink_invocation", "unsanitized_sql_from_model"],
+  "hypothesis_node": "improper_output_handling_drift",
+  "cpd_parameters": {
+    "base": 0.05,
+    "dangerous_sink_invocation_weight": 0.45,
+    "unsanitized_sql_from_model_weight": 0.40,
+    "dangerous_sink_invocation_and_unsanitized_sql_from_model_boost": 0.20
+  }
+}

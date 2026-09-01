@@ -1,7 +1,7 @@
 {
   "behavior": "high_risk_filesystem_and_exec_tool_invocation",
   "description": "Detects agent tool calls that touch the filesystem, execute commands, or reach the network, especially when aimed at sensitive targets.",
-  "references": ["internal", "OWASP-LLM06"],
+  "references": ["internal", "OWASP-LLM03:2026"],
   "evidence_mapping": {
     "filesystem_tool_use": {
       "description": "Agent invoked a file read/write/edit/search tool",
