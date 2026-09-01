@@ -5,8 +5,8 @@
 <h1 align="center">ShadowMandate</h1>
 
 <p align="center">
-  A Bayesian-network drift detector for AI agent logs — scored against generic<br/>
-  bad-pattern rules <em>and</em> each agent's own declared mandate.
+  Human-in-the-loop oversight for AI agents with real privilege —<br/>
+  every score traces back to a decision a person made, not a model that learned one.
 </p>
 
 <p align="center">
@@ -18,6 +18,7 @@
 ## Table of Contents
 
 - [The Problem: Shadow Users With Root](#the-problem-shadow-users-with-root)
+- [Human-in-the-Loop, by Design](#human-in-the-loop-by-design)
 - [Why Bayesian Networks? (No Math Degree Required)](#why-bayesian-networks-no-math-degree-required)
 - [Why Take ShadowMandate Seriously](#why-take-shadowmandate-seriously)
 - [Related Work](#related-work)
@@ -40,9 +41,40 @@ rule set stays quiet on it. It's only a violation because it's outside *that
 agent's* declared objective. A shadow user with root and no accountability
 doing exactly that, unnoticed, is the failure mode ShadowMandate targets.
 
+## Human-in-the-Loop, by Design
+
+There's a deliberate irony here worth naming up front: this is a tool for
+catching AI agents that overstepped their mandate — built as a tool that
+never acts outside a narrow, entirely human-authored mandate of its own. It
+reads logs and produces a number and a reason. Every escalation from there is
+a decision a person makes.
+
+That's not a caveat bolted on afterward — it's the architecture, at every
+stage:
+
+| Stage | Who decides | What ShadowMandate does |
+|---|---|---|
+| Writing detection rules | Your security team | Nothing on its own — it's your JSON, in your git history, reviewed like any other code change |
+| Setting how suspicious something is | Your security team sets `base` / `weight` / `boost` | Runs the arithmetic on numbers a human chose — never learns new ones by itself |
+| Judging one specific session | You, reading the output | Produces a posterior probability *and* a full `.explain()` breakdown — a recommendation, not a verdict enforced automatically |
+| Acting on a finding | Always a human | Never auto-revokes a session, never auto-blocks an agent, never auto-remediates anything |
+| Improving the scoring over time | Your security team, after real incidents | Nothing changes on its own — no retraining job, no online learning, no silent drift in what "suspicious" means |
+
+Why this matters in practice: a tool that watches agentic AI for overreach,
+and then reacts autonomously itself, just relocates the trust problem rather
+than solving it — now you have to trust *this* system's judgment calls
+unsupervised. ShadowMandate is deliberately the opposite shape: fast at
+surfacing evidence, slow (i.e., human) at deciding what to do about it.
+
 ## Why Bayesian Networks? (No Math Degree Required)
 
 ### The core idea
+
+The reason this uses a Bayesian network instead of a trained classifier
+isn't really about the math — it's about *where the judgment lives*, the
+same principle as the section above. A Bayesian network is a structured way
+of keeping a human's reasoning as the actual source of every score, instead
+of handing that reasoning over to a model trained on historical data.
 
 Forget the formulas for a second — the core idea is something you already do
 without thinking about it.
@@ -138,6 +170,9 @@ being reasonably good, and staying willing to revisit it.
 
 ## Why Take ShadowMandate Seriously
 
+- **It never acts on its own.** The tool auditing agent autonomy doesn't get
+  a pass on the same standard — it hands you a number and a reason, and stops
+  there. See [Human-in-the-Loop, by Design](#human-in-the-loop-by-design).
 - **It targets a gap generic tools miss.** The whole point isn't "is this
   weird" — it's "is this outside what *this specific agent* is accountable
   for." The IAM-investigator demo in [Quickstart](#quickstart) shows this
@@ -195,7 +230,8 @@ works out of the box either way. `SessionAnalyzer` runs every applicable
 hypothesis — the full generic catalog plus a role's mandate rules — in one
 pass, weighting mandate rules higher via a config-driven `session_weight` so
 a mandate breach still dominates the overall verdict even when a generic rule
-fires alongside it.
+fires alongside it. Every step in this pipeline ends in a report — none of
+them end in an action.
 
 ## Quickstart
 
