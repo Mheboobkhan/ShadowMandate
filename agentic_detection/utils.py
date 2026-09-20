@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 from pathlib import Path
 from typing import Any, Dict, Iterable, Union
@@ -34,6 +35,31 @@ def save_json(data: Dict[str, Any], path: PathLike, indent: int = 2) -> None:
 def clamp(value: float, lo: float = 0.0, hi: float = 1.0) -> float:
     """Clamp a numeric value into [lo, hi]."""
     return max(lo, min(hi, value))
+
+
+def saturate(score: float, knee: float = 0.6) -> float:
+    """Map an unbounded non-negative score into [0, 1) with a soft knee.
+
+    Below `knee` this is the identity, so every number a human tuned in the
+    low and middle of the range means exactly what they typed. Above `knee`
+    the remaining headroom is consumed exponentially::
+
+        f(s) = knee + (1 - knee) * (1 - exp(-(s - knee) / (1 - knee)))
+
+    The function is continuous and smooth at the knee (its derivative there is
+    1), strictly increasing everywhere, and asymptotic to 1.0 without ever
+    reaching it. That last property is the point: a hard clamp mapped every
+    score above 1.0 onto "certainty", erasing the difference between two
+    pieces of evidence and three. Negative scores clamp to 0.0.
+    """
+    if score <= 0.0:
+        return 0.0
+    if not 0.0 < knee < 1.0:
+        raise ValueError(f"knee must be in (0.0, 1.0), got {knee}")
+    if score <= knee:
+        return score
+    headroom = 1.0 - knee
+    return knee + headroom * (1.0 - math.exp(-(score - knee) / headroom))
 
 
 # Very small, dependency-free key=value log line tokenizer.

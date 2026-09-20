@@ -9,3 +9,12 @@
 #
 # Uncomment to opt in (requires numpy/scipy; install inside a virtualenv):
 # pgmpy>=0.1.8
+
+# ---------------------------------------------------------------------------
+# typesafe-sdk is an OPTIONAL second evidence channel (TypeSafe AI's Jev).
+# It is OFF by default. Enabling it with --jev sends selected log content to
+# api.typesafe.ai, so it is an explicit operator decision - see
+# docs/jev-channel.md before turning it on.
+#
+# Uncomment to opt in, then set TYPESAFE_API_KEY:
+# typesafe-sdk>=0.1
