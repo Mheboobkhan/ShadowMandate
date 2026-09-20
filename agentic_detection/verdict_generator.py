@@ -40,6 +40,20 @@ def risk_level_for(posterior: float) -> str:
     return "CRITICAL" if posterior >= 0.75 else "MINIMAL"
 
 
+def render_evidence(evidence: Dict[str, float]) -> Dict[str, Any]:
+    """Render evidence for JSON output.
+
+    Pattern-channel evidence is binary and reads best as 0/1; Jev-channel
+    evidence is a probability and must keep its precision. Emit each value in
+    whichever form it actually is.
+    """
+    rendered: Dict[str, Any] = {}
+    for node, value in evidence.items():
+        number = float(value)
+        rendered[node] = int(number) if number in (0.0, 1.0) else round(number, 4)
+    return rendered
+
+
 @dataclass
 class Verdict:
     agent_id: str
@@ -50,7 +64,7 @@ class Verdict:
     confidence: float
     threshold: float
     recommendation: str
-    evidence: Dict[str, int] = field(default_factory=dict)
+    evidence: Dict[str, float] = field(default_factory=dict)
     generated_at: str = field(
         default_factory=lambda: datetime.now(timezone.utc).isoformat()
     )
@@ -65,7 +79,7 @@ class Verdict:
             "confidence": round(self.confidence, 4),
             "threshold": self.threshold,
             "recommendation": self.recommendation,
-            "evidence": self.evidence,
+            "evidence": render_evidence(self.evidence),
             "generated_at": self.generated_at,
         }
 
@@ -83,7 +97,7 @@ class VerdictGenerator:
         agent_id: str,
         behavior_id: str,
         posterior_probability: float,
-        evidence: Optional[Dict[str, int]] = None,
+        evidence: Optional[Dict[str, float]] = None,
     ) -> Verdict:
         posterior = max(0.0, min(1.0, posterior_probability))
         risk_level = risk_level_for(posterior)

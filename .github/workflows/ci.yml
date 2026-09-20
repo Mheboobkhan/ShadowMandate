@@ -13,6 +13,16 @@ jobs:
       matrix:
         python-version: ["3.9", "3.11"]
         pgmpy: ["without", "with"]
+        exclude:
+          # pgmpy 1.x annotates with `int | float` at class-definition time,
+          # which raises TypeError on 3.9. bn_engine.py catches that and falls
+          # back to the manual backend, so this cell would run green while
+          # testing nothing about pgmpy - the equivalence test skips itself.
+          # Exclude it rather than keep a cell that looks like coverage and
+          # isn't. The 3.9 x "without" cell still proves the no-dependency
+          # path works on the oldest supported interpreter.
+          - python-version: "3.9"
+            pgmpy: "with"
     steps:
       - uses: actions/checkout@v4
 
@@ -31,6 +41,19 @@ jobs:
       - name: Install pgmpy
         if: matrix.pgmpy == 'with'
         run: pip install pgmpy
+
+      # The equivalence test skips itself when the engine could not load
+      # pgmpy. On a cell that installed pgmpy on purpose, a skip means the
+      # import guard swallowed a real problem, so fail instead of passing
+      # quietly.
+      - name: Assert the pgmpy backend actually loaded
+        if: matrix.pgmpy == 'with'
+        run: |
+          python -c "
+          from agentic_detection.bn_engine import _PGMPY_AVAILABLE
+          assert _PGMPY_AVAILABLE, 'pgmpy installed but the engine fell back to the manual backend'
+          print('pgmpy backend active')
+          "
 
       - name: Run tests
         run: pytest -v

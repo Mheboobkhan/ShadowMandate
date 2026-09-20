@@ -15,6 +15,17 @@
   <img src="https://img.shields.io/badge/dependencies-none%20required-brightgreen" alt="No hard dependencies">
 </p>
 
+<p align="center">
+  <b><a href="docs/README.md">📖 Documentation</a></b> —
+  <a href="docs/architecture.md">Architecture</a> ·
+  <a href="docs/scoring.md">Scoring</a> ·
+  <a href="docs/writing-rules.md">Writing Rules</a> ·
+  <a href="docs/log-formats.md">Log Formats</a> ·
+  <a href="docs/cli.md">CLI</a> ·
+  <a href="docs/jev-channel.md">Jev Channel</a> ·
+  <a href="docs/upgrading.md">Upgrading</a>
+</p>
+
 ## Table of Contents
 
 - [The Problem: Shadow Users With Root](#the-problem-shadow-users-with-root)
@@ -23,6 +34,7 @@
 - [Why Take ShadowMandate Seriously](#why-take-shadowmandate-seriously)
 - [Related Work](#related-work)
 - [How It Works](#how-it-works)
+- [Documentation](#documentation)
 - [Quickstart](#quickstart)
 - [Writing a New Generic Hypothesis](#writing-a-new-generic-hypothesis)
 - [Writing a New Role](#writing-a-new-role-defining-a-shadow-users-mandate)
@@ -55,10 +67,11 @@ stage:
 | Stage | Who decides | What ShadowMandate does |
 |---|---|---|
 | Writing detection rules | Your security team | Nothing on its own — it's your JSON, in your git history, reviewed like any other code change |
-| Setting how suspicious something is | Your security team sets `base` / `weight` / `boost` | Runs the arithmetic on numbers a human chose — never learns new ones by itself |
+| Setting how suspicious something is | Your security team sets `base` / `weight` / `boost`, plus the saturation knee and the session combination strategy | Runs the arithmetic on numbers a human chose — never learns new ones by itself, and refuses to load a config whose numbers it can't read |
 | Judging one specific session | You, reading the output | Produces a posterior probability *and* a full `.explain()` breakdown — a recommendation, not a verdict enforced automatically |
 | Acting on a finding | Always a human | Never auto-revokes a session, never auto-blocks an agent, never auto-remediates anything |
 | Improving the scoring over time | Your security team, after real incidents | Nothing changes on its own — no retraining job, no online learning, no silent drift in what "suspicious" means |
+| Reading the evidence itself | Your security team writes the question; a model answers it *only* if you opt in | Substring matching by default. The optional [Jev channel](docs/jev-channel.md) is off unless you enable it, can only raise a node, and says so loudly in the report whenever it runs or fails |
 
 Why this matters in practice: a tool that watches agentic AI for overreach,
 and then reacts autonomously itself, just relocates the trust problem rather
@@ -120,7 +133,15 @@ Walk it forward:
 3. **The same session also bulk-downloads a credential report**
    (`credential_harvesting` fires too) → 0.05 + 0.55 + 0.50 = 1.10, **then**
    the boost kicks in because *both* specific evidence nodes are active:
-   +0.20 more. Clamped at 100%, this lands at **100% — CRITICAL**.
+   +0.20 more, for an accumulated score of **1.30**. That's past the top of
+   the probability scale, so a soft knee compresses it to **93% — CRITICAL**.
+
+That last step is worth dwelling on, because it used to be a hard clamp that
+reported 100%. Two substring matches are not certainty, and saying so out loud
+also erased the difference between two pieces of evidence and three — every
+high-evidence combination landed on the same 1.00. The knee keeps them ordered
+and keeps the number honest. The full curve, and the eight-combination table
+that motivated it, are in [docs/scoring.md](docs/scoring.md).
 
 That's the whole engine. No hidden layers, no gradient descent — every one of
 those numbers is something a security analyst wrote on purpose, and
@@ -219,6 +240,8 @@ than the projects above, not a replacement for any of them.
 flowchart LR
     A["Agent log<br/>(key=value or AWS Bedrock<br/>ModelInvocationLog ndjson)"] --> B["AgentLogParser<br/>normalize into events"]
     B --> C["RuleEngine<br/>match evidence_mapping<br/>&rarr; 0/1 evidence vector"]
+    B -.-> J["JevChannel <i>(optional, off by default)</i><br/>same questions in natural language<br/>&rarr; 0..1 per node"]
+    J -.-> C
     C --> D["BayesianNetworkEngine<br/>evidence &rarr; P(drift | evidence)"]
     D --> E["VerdictGenerator<br/>posterior &rarr; risk band<br/>+ recommendation"]
     E --> F["SessionAnalyzer<br/>combine generic + mandate<br/>hypotheses into one verdict"]
@@ -230,8 +253,30 @@ works out of the box either way. `SessionAnalyzer` runs every applicable
 hypothesis — the full generic catalog plus a role's mandate rules — in one
 pass, weighting mandate rules higher via a config-driven `session_weight` so
 a mandate breach still dominates the overall verdict even when a generic rule
-fires alongside it. Every step in this pipeline ends in a report — none of
-them end in an action.
+fires alongside it. Those per-hypothesis scores combine with a weighted
+noisy-OR, which guarantees corroborating evidence can only *raise* a session's
+score — see [docs/scoring.md](docs/scoring.md#combining-hypotheses) for why
+that replaced a weighted average, and how to change it. Every step in this
+pipeline ends in a report — none of them end in an action.
+
+`JevChannel` is an optional second evidence channel that asks each rule's
+question in natural language instead of matching substrings, catching
+paraphrases a phrase list can't enumerate. It is **off by default**, it can only
+raise an evidence node and never lower one, and enabling it sends log content to
+a third-party API — read [docs/jev-channel.md](docs/jev-channel.md) before
+turning it on.
+
+## Documentation
+
+| Page | |
+|---|---|
+| [docs/architecture.md](docs/architecture.md) | The pipeline, module by module |
+| [docs/scoring.md](docs/scoring.md) | How evidence becomes a probability, and how hypotheses combine |
+| [docs/writing-rules.md](docs/writing-rules.md) | Full `dr_*.json` / `bn_*.json` schema reference |
+| [docs/log-formats.md](docs/log-formats.md) | Supported log formats and every field rules can match on |
+| [docs/cli.md](docs/cli.md) | Flags, output JSON, pipeline integration |
+| [docs/jev-channel.md](docs/jev-channel.md) | The optional natural-language evidence channel |
+| [docs/upgrading.md](docs/upgrading.md) | Coming from 1.0.x? Your numbers moved. |
 
 ## Quickstart
 
@@ -251,11 +296,13 @@ python3 detect_drift.py data/raw/app.log \
     --agent-id ollama-test --behavior external_connection
 ```
 
-The role-aware run above lands on `DRIFT_DETECTED / HIGH`, driven by the
-`iam_investigator_mandate_violation` hypothesis (posterior 1.00) — while every
-individual *generic* hypothesis in the same run stays at MEDIUM or below.
-That gap is the point: this is the case a generic-only ruleset misses, and a
-role-mandate one catches.
+The role-aware run above lands on `DRIFT_DETECTED / CRITICAL` (session
+posterior 0.97), driven by the `iam_investigator_mandate_violation` hypothesis
+at 0.93 — while every individual *generic* hypothesis in the same run stays at
+MEDIUM or below. That gap is the point: this is the case a generic-only ruleset
+misses, and a role-mandate one catches.
+
+Full flag reference and output schema: [docs/cli.md](docs/cli.md).
 
 ## Writing a New Generic Hypothesis
 

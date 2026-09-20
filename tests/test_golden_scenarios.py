@@ -21,7 +21,13 @@ def test_iam_investigator_session_flags_critical_mandate_violation():
         r for r in report.hypothesis_results if r.id == "iam_investigator_mandate_violation"
     )
     assert mandate_result.fired is True
-    assert mandate_result.verdict.posterior_probability == pytest.approx(1.0)
+    # Two of the three mandate evidence nodes fire (credential reset and
+    # harvesting), accumulating .05 + .55 + .50 + .20 = 1.30. The soft knee
+    # maps that to 0.93 - high, and honestly short of certainty. The old hard
+    # clamp reported exactly 1.00 here, indistinguishable from all three
+    # nodes firing.
+    assert mandate_result.verdict.posterior_probability == pytest.approx(0.9305, abs=1e-4)
+    assert mandate_result.verdict.posterior_probability < 1.0
     assert mandate_result.verdict.risk_level == "CRITICAL"
 
     # The whole point of the demo: every *generic* hypothesis on this same
@@ -34,7 +40,17 @@ def test_iam_investigator_session_flags_critical_mandate_violation():
         )
 
     assert report.overall_verdict == "DRIFT_DETECTED"
-    assert report.overall_risk_level == "HIGH"
+    assert report.overall_risk_level == "CRITICAL"
+
+    # The session must not score below its own driving hypothesis. Under the
+    # old weighted average the four correctly-fired generic hypotheses pulled
+    # this session down to 0.65 - beneath the mandate violation driving it.
+    assert report.overall_posterior >= mandate_result.verdict.posterior_probability
+    assert report.combination == "noisy_or"
+
+    # Default run: the Jev channel is off and nothing was sent anywhere.
+    assert report.jev.status == "disabled"
+    assert report.jev.questions_asked == 0
 
 
 def test_external_connection_single_hypothesis_on_app_log():
@@ -44,5 +60,7 @@ def test_external_connection_single_hypothesis_on_app_log():
         behavior_id="external_connection",
     )
     result = report.hypothesis_results[0]
-    assert result.verdict.posterior_probability == pytest.approx(0.82)
+    # external_url_access + external_download: base .05 + .30 + .35 + .12 boost
+    # = .82 accumulated, saturating to ~.769.
+    assert result.verdict.posterior_probability == pytest.approx(0.7692, abs=1e-4)
     assert result.verdict.risk_level == "CRITICAL"
